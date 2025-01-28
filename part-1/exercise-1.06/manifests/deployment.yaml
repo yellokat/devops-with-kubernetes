@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dwk-project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dwk-project
+  template:
+    metadata:
+      labels:
+        app: dwk-project
+    spec:
+      containers:
+        - name: dwk-project
+          image: dwk-project:1.6.0
+          imagePullPolicy: Never
+          env:
+            - name: PORT
+              value: "7777"
