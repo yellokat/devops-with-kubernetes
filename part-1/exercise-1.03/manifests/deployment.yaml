@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dwk-log-output
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dwk-log-output
+  template:
+    metadata:
+      labels:
+        app: dwk-log-output
+    spec:
+      containers:
+        - name: dwk-log-output
+          image: dwk-log-output:latest
+          imagePullPolicy: Never
