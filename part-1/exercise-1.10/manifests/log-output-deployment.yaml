@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dwk-log-output
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dwk-log-output
+  template:
+    metadata:
+      labels:
+        app: dwk-log-output
+    spec:
+      volumes:
+        - name: shared-image
+          emptyDir: {}
+      containers:
+        - name: dwk-log-output-writer
+          image: dwk-log-output-writer:1.10.0
+          imagePullPolicy: Never
+          env:
+            - name: PORT
+              value: "7777"
+          volumeMounts:
+          - name: shared-image
+            mountPath: /usr/src/app/files
+        - name: dwk-log-output-reader
+          image: dwk-log-output-reader:1.10.0
+          imagePullPolicy: Never
+          env:
+            - name: PORT
+              value: "7778"
+          volumeMounts:
+          - name: shared-image
+            mountPath: /usr/src/app/files

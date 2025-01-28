@@ -46,7 +46,7 @@ app.state.n_requests = 0
 def read_root():
     # increment locally stored value
     app.state.n_requests += 1
-    return {"message": f"Pinged {app.state.n_requests} times."}
+    return {"message": f"Pong {app.state.n_requests}"}
 
 if __name__ == "__main__":
     uvicorn.run(app, host=host, port=port)
@@ -191,20 +191,20 @@ Let's try calling our endpoints:
 - `curl 127.0.0.1:8081/pingpong`
 
   ```
-  {"message":"Pinged 1 times."}
+  {"message":"Pong 1"}
   ```
 - `curl 127.0.0.1:8081/pingpong`
 
   ```
-  {"message":"Pinged 2 times,"}
+  {"message":"Pong 2"}
   ```
 - `curl 127.0.0.1:8081/pingpong`
 
   ```
-  {"message":"Pinged 3 times."}
+  {"message":"Pong 3"}
   ```
 - `curl 127.0.0.1:8081/pingpong`
 
   ```
-  {"message":"Pinged 4 times."}
+  {"message":"Pong 4"}
   ```
