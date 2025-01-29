@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: exercise-pv-claim # name of the volume claim, this will be used in the deployment
+spec:
+  storageClassName: my-global-pv # this is the name of the persistent volume we are claiming
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+

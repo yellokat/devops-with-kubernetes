@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: example-configmap
+data:
+  # property-like key; each key maps to a simple value
+  MESSAGE: "hello world"
+
+  # file-like key
+  information.txt: |
+    this text is from file

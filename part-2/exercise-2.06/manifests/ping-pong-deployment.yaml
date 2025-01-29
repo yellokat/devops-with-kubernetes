@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dwk-ping-pong
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dwk-ping-pong
+  template:
+    metadata:
+      labels:
+        app: dwk-ping-pong
+    spec:
+      containers:
+        - name: dwk-ping-pong
+          image: dwk-ping-pong:2.6.0
+          imagePullPolicy: Never
+          env:
+            - name: PORT
+              value: "7777"

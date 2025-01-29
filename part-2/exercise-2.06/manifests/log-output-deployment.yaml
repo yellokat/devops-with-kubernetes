@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dwk-log-output
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dwk-log-output
+  template:
+    metadata:
+      labels:
+        app: dwk-log-output
+    spec:
+      volumes:
+        - name: exercise-pv
+          persistentVolumeClaim:
+            claimName: exercise-pv-claim
+        - name: exercise-configmap
+          configMap:
+            name: example-configmap
+      containers:
+        - name: dwk-log-output-writer
+          image: dwk-log-output-writer:2.6.0
+          imagePullPolicy: Never
+          env:
+            - name: PORT
+              value: "7777"
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: example-configmap
+                  key: MESSAGE
+          volumeMounts:
+          - name: exercise-pv
+            mountPath: /usr/src/app/files
+          - name: exercise-configmap
+            mountPath: "/usr/src/app/config"
+            readOnly: true
+        - name: dwk-log-output-reader
+          image: dwk-log-output-reader:2.6.0
+          imagePullPolicy: Never
+          env:
+            - name: PORT
+              value: "7778"
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: example-configmap
+                  key: MESSAGE
+          volumeMounts:
+          - name: exercise-pv
+            mountPath: /usr/src/app/files
+          - name: exercise-configmap
+            mountPath: "/usr/src/app/config"
+            readOnly: true
