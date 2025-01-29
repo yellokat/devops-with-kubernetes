@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <title>Dynamic Image Page</title> -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        img {
+            width: 33%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        input {
+            width: 60%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            text-align: left;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Dynamic Image Page</h1>
+    
+    <!-- Dynamic Image -->
+    <img src="{{ image_path }}" alt="Dynamic Image">
+
+    <!-- Text Field and Button -->
+    <div>
+        <input type="text" maxlength="140" id="todo_input" placeholder="Type something (max 140 chars)...">
+        <button type="button" onclick="sendPostRequest()">Submit</button>
+    </div>
+
+    <!-- Todo List -->
+    <ul id="item-list"></ul>
+
+    <script>
+        const getTodoUrl = "{{ get_todo_url }}";  
+        function fetchItems() {
+            fetch(getTodoUrl)
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById("item-list");
+                list.innerHTML = "";  // Clear old items
+                data.forEach(item => {
+                    const li = document.createElement("li");
+                    li.textContent = item;
+                    list.appendChild(li);
+                });
+            })
+            .catch(error => console.error("Error fetching items:", error));
+        }
+
+        // Fetch items every 2 seconds
+        setInterval(fetchItems, 500);
+    </script>
+
+    
+    <script>
+        const postTodoUrl = "{{ post_todo_url }}";  
+        function sendPostRequest() {
+            const textValue = document.getElementById("todo_input").value;
+            fetch(postTodoUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ todo: textValue })  // Send input value as JSON
+            })
+        }
+    </script>
+
+
+</body>
+</html>
