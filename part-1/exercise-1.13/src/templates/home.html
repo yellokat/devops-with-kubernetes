@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <title>Dynamic Image Page</title> -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        img {
+            width: 33%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        input {
+            width: 60%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            text-align: left;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Dynamic Image Page</h1>
+    
+    <!-- Dynamic Image -->
+    <img src="{{ image_path }}" alt="Dynamic Image">
+
+    <!-- Text Field and Button -->
+    <div>
+        <input type="text" maxlength="140" placeholder="Type something (max 140 chars)...">
+        <button type="button">Submit</button>
+    </div>
+
+    <!-- Hardcoded Bullet Points -->
+    <ul>
+        <li>Random fact: The moon has moonquakes!</li>
+        <li>Did you know? Honey never spoils.</li>
+        <li>Fun fact: Octopuses have three hearts.</li>
+    </ul>
+
+</body>
+</html>

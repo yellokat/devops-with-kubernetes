@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dwk-project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dwk-project
+  template:
+    metadata:
+      labels:
+        app: dwk-project
+    spec:
+      volumes:
+          - name: shared-image
+            persistentVolumeClaim:
+              claimName: image-claim
+      containers:
+        - name: dwk-project
+          image: dwk-project:1.12.0
+          imagePullPolicy: Never
+          env:
+            - name: PORT
+              value: "7777"
+          volumeMounts:
+          - name: shared-image
+            mountPath: /usr/src/app/files
