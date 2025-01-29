@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dwk-log-output-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: dwk-log-output
+  ports:
+    # service port 7777 -> container port 7777
+    - port: 7777
+      name: dwk-log-output-reader
+      protocol: TCP
+      targetPort: 7777 
+    # service port 7778 -> container port 7778
+    - port: 7778
+      name: dwk-log-output-writer
+      protocol: TCP
+      targetPort: 7778
